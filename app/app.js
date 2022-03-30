@@ -19,6 +19,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const bodyParser = require("body-parser");
 
 // 라우팅
 const home = require("./src/routes/home");
@@ -27,6 +28,9 @@ const home = require("./src/routes/home");
 app.set('views', path.join(__dirname, 'src','views')); 
 app.set("view engine", "ejs");
 app.use(express.static(`${__dirname}/src/public`));
+app.use(bodyParser.json());
+// 한글, 특수 문자 같은 문자에 대해 인코딩
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", home);  // use -> 미들웨어
 
